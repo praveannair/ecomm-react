@@ -17,7 +17,7 @@ export default function Navbar() {
   };
   return (
     <div className="navbar">
-      <div className="title">Irish Cafe</div>
+      <div className="title">Ecomm-React</div>
       <div>
         <h3>{flag > 1 && user.name}</h3>
       </div>
