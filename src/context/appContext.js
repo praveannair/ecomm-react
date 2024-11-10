@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import products from "../components/product/products.json";
+// import products from "../components/product/products.json";
 export const AppContext = createContext(null);
 
 export const AppContextProvider = (props) => {
@@ -8,11 +8,13 @@ export const AppContextProvider = (props) => {
   const [user, setUser] = useState({});
   const [users, setUsers] = useState([]);
   const [flag, setFlag] = useState(0);
+  const [products, setProducts] = useState(0);
  
   const val = {
     cartItems,
     setCartItems,
     products,
+    setProducts,
     orders,
     setOrders,
     user,

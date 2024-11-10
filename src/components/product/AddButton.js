@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AppContext } from "../../context/appContext";
 import "./AddButton.css";
 export default function AddButton(props) {
-  const { cartItems, setCartItems } = useContext(AppContext);
+  const { cartItems, setCartItems} = useContext(AppContext);
   const addtoCart = (id) => {
     setCartItems((prev) => ({ ...prev, [id]: (prev[id] ?? 0) + 1 }));
   };

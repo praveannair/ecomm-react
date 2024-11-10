@@ -7,27 +7,31 @@ import "./Login.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function Login() {
   const { user, setUser, users, setUsers, flag, setFlag } =
     useContext(AppContext);
   const [visible, setvisible] = useState(false);
   const [msg, setMsg] = useState();
   const PATH = process.env.REACT_APP_PATH;
-  const Navigate = useNavigate()
-  const validateUser = () => {
-    const found = users.find(
-      (elem) => elem.email === user.email && elem.pass === user.pass
-    );
+  const Navigate = useNavigate();
+  const API = process.env.REACT_APP_API;
+  const validateUser = async () => {
+   console.log(user)
+    const found = await axios.post(`${API}/users/signin`, user);
+    // console.log(found1)
+    // const found = users.find(
+    //   (elem) => elem.email === user.email && elem.pass === user.pass
+    // );
     if (found) {
       setUser((prev) => ({ ...prev, name: found.name }));
       setFlag(() => 2);
-      Navigate(`${PATH}/cart`)
-
+      Navigate(`${PATH}/cart`);
     } else setMsg(() => "Invalid email or password");
   };
   return (
     <div className="Login-container">
-        <div className="Login-signup-title">Sign In</div>
+      <div className="Login-signup-title">Sign In</div>
       <div className="">
         <div className="Login-msg">{msg}</div>
         <div className="txtBox">
@@ -57,10 +61,9 @@ export default function Login() {
         <br></br>
         <div>Forgot Password?</div>
         <br></br>
-  
+
         <div className="Register-login">
           <Link to={`${PATH}/register`}>
-          
             <button className="newAccBtn">Create new account</button>
           </Link>
         </div>

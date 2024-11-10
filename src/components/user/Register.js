@@ -4,19 +4,23 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/appContext";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 export default function Register() {
+  const API = process.env.REACT_APP_API
   const [msg, setMsg] = useState();
   const Navigate = useNavigate();
   const { user, setUser, users, setUsers, flag, setFlag } =
     useContext(AppContext);
 const PATH = process.env.REACT_APP_PATH
-  const newUser = () => {
+  const newUser = async () => {
     if (Object.keys(user).length < 2) {
       setMsg(() => "Please complete the form");
     } else if (user.name === "" || user.email === "" || user.pass === "") {
       setMsg(() => "Fields cannot be blank");
     } else {
-      setUsers((prev) => [...prev, user]);
+      // setUsers((prev) => [...prev, user]);
+      user.role = "user"
+      const res = await axios.post(`${API}/users/signup`,user)
       setFlag(()=>2)
       Navigate(`${PATH}/`)
     }
